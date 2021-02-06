@@ -4,7 +4,7 @@ class Solution:
         if n_rows == 0:
             return 0
         n_cols = len(matrix[0])        
-        if n_rows + n_cols == 0:
+        if n_cols == 0:
             return 0
         
         dp = [[0]*n_cols for _ in range(n_rows)]
@@ -22,10 +22,10 @@ class Solution:
                 val = dp[r][c]
                 if val == 0:
                     width = [0] * (r+2)
-                else:
-                    for k in range(val, 0, -1):
+                else:   
+                    for k in range(val, 0, -1): # for k<=val, this is valid square given height and width
                         width[k] += 1
                         res = max(res, width[k]*k)
-                    for k in range(val+1, r+2):
+                    for k in range(val+1, r+2): # k>val, restart the width count
                         width[k] = 0
         return res
